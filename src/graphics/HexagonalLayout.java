@@ -238,17 +238,17 @@ public class HexagonalLayout implements LayoutManager {
 		System.out.println(numberOfRows);
 		return numberOfRows;
 	}
-	
+
 	/*
 	 * Returns number of cells needed, based on sizeOfDiagonal
 	 */
 	public int numOfCells() {
 		int edge = (sizeOfDiagonal / 2) + 1;
 		int num = 0;
-		for (int i=0; i < edge - 1; i++) {
+		for (int i = 0; i < edge - 1; i++) {
 			num += sizeOfDiagonal - i - 1;
 		}
-		return num*2 + sizeOfDiagonal;
+		return num * 2 + sizeOfDiagonal;
 	}
 
 	/*
@@ -298,37 +298,22 @@ public class HexagonalLayout implements LayoutManager {
 			y = 0;
 
 			// Laying out each of the components in the container
-			// for (Component c : parent.getComponents()) {
-			// if (x > parent.getWidth() - boxWidth) {
-			// smallRow = !smallRow;
-			// if (smallRow) {
-			// x = (int) Math.round(boxWidth / 2.0);
-			// y += Math.round(boxHeight * heightRatio);
-			// } else {
-			// x = 0;
-			// y += Math.round(boxHeight * heightRatio);
-			// }
-			//
-			// }
-			// c.setBounds(x + leftOffset, y + topOffset, cWidth, cHeight);
-			// x += boxWidth;
-			// }
-
 			for (Component c : parent.getComponents()) {
-				if (y > parent.getHeight() - boxHeight) {
+				if (x > parent.getWidth() - boxWidth) {
 					smallRow = !smallRow;
 					if (smallRow) {
-						y = (int) Math.round(boxHeight / 2.0);
-						x += Math.round(boxWidth * heightRatio);
+						x = (int) Math.round(boxWidth / 2.0);
+						y += Math.round(boxHeight * heightRatio);
 					} else {
-						y = 0;
-						x += Math.round(boxWidth * heightRatio);
+						x = 0;
+						y += Math.round(boxHeight * heightRatio);
 					}
 
 				}
 				c.setBounds(x + leftOffset, y + topOffset, cWidth, cHeight);
-				y += boxHeight;
+				x += boxWidth;
 			}
+
 		}
 
 		else { // make that shit hexagonal!
@@ -346,9 +331,9 @@ public class HexagonalLayout implements LayoutManager {
 			int bottomOffset = insets.bottom;
 
 			// spacing dimensions
-			int boxWidth = (int) Math.round((parent.getWidth() / (cols * .8)));
+			int boxWidth = (int) Math.round((parent.getWidth() / (1+((cols-1) * .75))));
 			int boxHeight = parent.getHeight() / sizeOfDiagonal;
-			double widthRatio = 0.75;
+			double widthRatio = 0.73;
 
 			// component dimensions
 			int cWidth = (boxWidth - (leftOffset + rightOffset));

@@ -3,11 +3,15 @@ package graphics;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 /**
@@ -27,6 +31,8 @@ public class HexButton extends JButton {
 	public HexButton() {
 		this.setOpaque(false);
 		hexagonalShape = getHexPolygon();
+
+
 	}
 
 	/**
@@ -40,18 +46,18 @@ public class HexButton extends JButton {
 		int h = getHeight() - 1;
 		int ratio = (int) (h * .25);
 
-//		hex.addPoint(w / 2, 0);
-//		hex.addPoint(w, ratio);
-//		hex.addPoint(w, h - ratio);
-//		hex.addPoint(w / 2, h);
-//		hex.addPoint(0, h - ratio);
-//		hex.addPoint(0, ratio);
-		
+		// hex.addPoint(w / 2, 0);
+		// hex.addPoint(w, ratio);
+		// hex.addPoint(w, h - ratio);
+		// hex.addPoint(w / 2, h);
+		// hex.addPoint(0, h - ratio);
+		// hex.addPoint(0, ratio);
+
 		hex.addPoint(ratio, 0);
 		hex.addPoint(w - ratio, 0);
 		hex.addPoint(w, h / 2);
 		hex.addPoint(w - ratio, h);
-		hex.addPoint(ratio , h);
+		hex.addPoint(ratio, h);
 		hex.addPoint(0, h / 2);
 
 		return hex;
@@ -144,7 +150,12 @@ public class HexButton extends JButton {
 		g.setColor(getBackground());
 		g.drawPolygon(hexagonalShape);
 		g.fillPolygon(hexagonalShape);
-
+		
+		setOpaque(false);
+		setContentAreaFilled(false);
+		setBorderPainted(false);
+		super.paintComponent(g);
+		
 	}
 
 	/*
@@ -154,7 +165,7 @@ public class HexButton extends JButton {
 	 */
 	@Override
 	protected void paintBorder(Graphics g) {
-		// Does not print border
+		super.paintBorder(g);
 	}
 
 }
