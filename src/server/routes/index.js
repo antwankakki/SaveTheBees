@@ -12,7 +12,7 @@ module.exports = function(){
     res.json({status:'working'});
   })
   router.post('/login',function(req,res){
-    if(curState === state.waiting && req.body.hasOwnProperty('nickName')){
+    if(curState === state.waiting && req.body.hasOwnProperty('nickName') && req.body.hasOwnProperty('puzzle')){
       if(curUsers.indexOf(req.body.nickName)< 0){
         req.session.nickName = req.body.nickName;
         curUsers.push(req.body.nickName);
@@ -20,12 +20,15 @@ module.exports = function(){
         res.sendStatus(200);
       }
       else{
-        res.sendStatus(400).json('Username already in use');
+        res.status(400).json('Username already in use');
       }
     }
     else{
-      res.sendStatus(400).json('Game in session or missing data');
+      res.status(400).json('Game in session or missing data');
     }
+  })
+  router.get('/users', function(req,res){
+    res.json(curUsers);
   })
   router.get('/check', function(req,res){
     if(curState === state.waiting){
