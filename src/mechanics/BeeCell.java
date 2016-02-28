@@ -1,5 +1,7 @@
 package mechanics;
 
+import gUtils.Logger;
+
 /**
  * This class represents a bee cell. It gives references to the neighbors of the cell and 
  * allows the user to check on the kids.
@@ -7,6 +9,10 @@ package mechanics;
  *
  */
 public class BeeCell {
+	
+	/* Constants */
+	private static final String DEBUG_CONSTRICT = "NEW CELL MADE";
+	
 	public static final int TOP_LEFT = 0, TOP = 1, TOP_RIGHT = 2, BOTTOM_RIGHT = 3,
 							BOTTOM = 4, BOTTOM_LEFT = 5;
 	
@@ -22,7 +28,9 @@ public class BeeCell {
 	/**
 	 * Constructor
 	 */
-	public BeeCell(){}
+	public BeeCell(){
+		Logger.log(DEBUG_CONSTRICT);
+	}
 	
 	/**
 	 * Returns the status of the bee responsible for this hive
