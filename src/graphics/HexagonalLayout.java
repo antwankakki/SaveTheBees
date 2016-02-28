@@ -238,6 +238,18 @@ public class HexagonalLayout implements LayoutManager {
 		System.out.println(numberOfRows);
 		return numberOfRows;
 	}
+	
+	/*
+	 * Returns number of cells needed, based on sizeOfDiagonal
+	 */
+	public int numOfCells() {
+		int edge = (sizeOfDiagonal / 2) + 1;
+		int num = 0;
+		for (int i=0; i < edge - 1; i++) {
+			num += sizeOfDiagonal - i - 1;
+		}
+		return num*2 + sizeOfDiagonal;
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -354,18 +366,15 @@ public class HexagonalLayout implements LayoutManager {
 					y = (sizeOfDiagonal - (extra + edgeLength)) * (boxHeight / 2);
 					rowNum = 0;
 					newColumn = false;
-					
-					System.out.println("colNum: " + colNum);
 				}
+
 				c.setBounds(x + leftOffset, y + topOffset, cWidth, cHeight);
-//				System.out.println("rowNum: " + rowNum);
 				if (++rowNum >= (edgeLength + extra)) {
 					newColumn = true;
 					colNum++;
 					if (edgeLength + colNum <= sizeOfDiagonal) {
 						extra++;
-					}
-					else {
+					} else {
 						extra--;
 					}
 				} else {

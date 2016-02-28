@@ -64,9 +64,10 @@ public class HexTest {
 	
 	
 	// MAKE IT HEXAGONAL BABY!!
-	f.setLayout(new HexagonalLayout(5, new Insets(1,1,1,1)));
+	HexagonalLayout hl = new HexagonalLayout(11, new Insets(1,1,1,1));
+	f.setLayout(hl);
 
-	for (int i = 0; i < 19; i++) { // Change the number in the loop to get
+	for (int i = 0; i < hl.numOfCells(); i++) { // Change the number in the loop to get
 					// more/less buttons
 
 	    HexButton b = new HexButton();
