@@ -17,7 +17,7 @@ public class BeeCell {
 							BOTTOM = 4, BOTTOM_LEFT = 5;
 	
 	public static final int PESTICIDE = 6, DYING = 5, VERY_SICK = 4, SICK = 3, 
-							NORMAL = 2, VERY_HAPPY = 1; 
+							NORMAL = 2, VERY_HAPPY = 1, EMPTY = 0	 ; 
 	
 	/* The honeycomb's neighbors */
 	public BeeCell[] neighbors = new BeeCell[6];
