@@ -29,29 +29,44 @@ module.exports = function(){
   })
   router.get('/check', function(req,res){
     if(curState === state.waiting){
-      res.sendStatus(400);
+      res.status(400).json({status:'waiting for game to start'});
     }
     else if(curState === state.started){
-      res.json({puzzle:puzzle,startedBy:gameMaster});
+      res.json({puzzle:puzzle,startedBy:gameMaster,status:'game is in session'});
     }
     else{
-      res.json({winner:gameMaster});
+      res.json({winner:gameMaster, status:'game ended'});
     }
   })
   router.post('/start', function(req,res){
-    gameMaster = req.session.nickName;
-    curState = state.started;
+    if(req.session.hasOwnProperty('nickName')){
+      gameMaster = req.session.nickName;
+      curState = state.started;
+      res.sendStatus(200);
+    }
+    else{
+      res.status(400).json({status:'missing session info'});
+    }
   })
   router.post('/solved', function(req,res){
-    curState = state.ended;
-    gameMaster = req.session.nickName;
-    setTimeout(function () {
-      curState = 0;
-    }, 5000);
+    if(req.session.hasOwnProperty('nickName')){
+      curState = state.ended;
+      gameMaster = req.session.nickName;
+      setTimeout(function () {
+        curState = 0;
+      }, 5000);
+      res.sendStatus(200);
+    }
+    else{
+      res.status(400).json({status:'missing session info'});
+    }
   })
   router.get('/logout',function(req,res){
     curUsers.splice(curUsers.indexOf(req.session.nickName),1);
     req.session.destroy();
+    if(curUsers.length===0){
+      curState = state.waiting;
+    }
     res.json({logout:true});
   })
   router.post('/test',function(req,res){
